@@ -1,0 +1,2 @@
+Title: Persistent Archer and Dark Mage summons
+Archer and Dark Mage summons stay out permanently.

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shining Soul II Patcher</title>
+<meta name="description" content="Apply gameplay patches to the English Shining Soul II (GBA) ROM in your browser.">
+<style>
+  :root {
+    --bg: #f6f5f2; --panel: #ffffff; --text: #1d1d1f; --muted: #6b6b70; --line: #dcdad4;
+    --accent: #2f5fd0; --accent-text: #ffffff; --ok: #1f7a3a; --warn: #a15c00; --err: #b3261e;
+    --hover: #f0efeb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141416; --panel: #1d1d20; --text: #e8e8ea; --muted: #9a9aa2; --line: #333338;
+      --accent: #6c93ff; --accent-text: #0b0b0d; --ok: #5cc27a; --warn: #e3a54a; --err: #ff7a70;
+      --hover: #26262a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  section {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; margin-bottom: 16px;
+  }
+  h2 { font-size: 1rem; margin: 0 0 10px; }
+  #drop {
+    border: 2px dashed var(--line); border-radius: 8px; padding: 18px; text-align: center;
+    cursor: pointer; color: var(--muted);
+  }
+  #drop.over { border-color: var(--accent); color: var(--text); }
+  #drop strong { color: var(--text); }
+  #rom-file { display: none; }
+  .info { margin-top: 8px; font-size: 0.9rem; color: var(--muted); word-break: break-all; }
+  .ok { color: var(--ok); } .warn { color: var(--warn); } .err { color: var(--err); }
+  .head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .head h2 { margin: 0; flex: 1; }
+  button {
+    font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+    border-radius: 6px; padding: 4px 12px; cursor: pointer;
+  }
+  button:hover { background: var(--hover); }
+  button.primary {
+    width: 100%; padding: 10px; background: var(--accent); color: var(--accent-text);
+    border-color: var(--accent); font-weight: 600;
+  }
+  button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  #list { list-style: none; margin: 0; padding: 0; }
+  #list li { border-top: 1px solid var(--line); }
+  #list li:first-child { border-top: 0; }
+  #list label { display: flex; gap: 10px; padding: 8px 4px; cursor: pointer; align-items: flex-start; }
+  #list label:hover { background: var(--hover); }
+  #list input { margin-top: 4px; flex: none; }
+  .name { font-weight: 600; }
+  .tag {
+    font-size: 0.75rem; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px;
+    margin-left: 6px; color: var(--muted); font-weight: 400;
+  }
+  .desc { color: var(--muted); font-size: 0.9rem; }
+  .dl { margin-left: auto; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  #status { margin: 12px 0; min-height: 1.4em; white-space: pre-wrap; }
+  footer { color: var(--muted); font-size: 0.85rem; }
+  a { color: var(--accent); }
+  code { font-size: 0.85em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Shining Soul II Patcher</h1>
+  <p class="sub">Gameplay patches for the English translation of Shining Soul II (GBA). Everything runs in
+    your browser: your ROM is never uploaded.</p>
+
+  <section>
+    <h2>1. Your ROM</h2>
+    <div id="drop" tabindex="0" role="button">
+      <strong>Choose a .gba file</strong> or drop it here
+      <input type="file" id="rom-file" accept=".gba,.bin">
+    </div>
+    <div class="info" id="rom-info">The patches are made for the English ROM <code id="base-name">ss2-en-phase1d.gba</code>.</div>
+  </section>
+
+  <section>
+    <div class="head">
+      <h2>2. Patches</h2>
+      <button id="all" type="button">All</button>
+      <button id="none" type="button">None</button>
+    </div>
+    <ul id="list"><li class="desc">Loading patches…</li></ul>
+  </section>
+
+  <section>
+    <button class="primary" id="apply" type="button" disabled>Patch and download</button>
+    <div id="status"></div>
+  </section>
+
+  <footer>
+    Any combination of these patches is safe: none of them overlap. If two selected patches ever write
+    different bytes to the same place, the patcher refuses and names them.
+    <b>IPS32</b> patches write above 16 MiB; most IPS tools (Flips etc.) can't read them, this one can.
+    Most mods are by the Chinese SS2 modding community.
+  </footer>
+</main>
+<script src="patcher.js"></script>
+</body>
+</html>

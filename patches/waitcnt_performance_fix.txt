@@ -1,0 +1,2 @@
+Title: Performance fix (WAITCNT)
+Runs the cartridge at the wait states the developers intended (the game reset them at boot), for less slowdown.

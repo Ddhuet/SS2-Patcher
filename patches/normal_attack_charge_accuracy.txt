@@ -1,0 +1,1 @@
+Normal (tap A) attacks get the same accuracy as charge attacks.

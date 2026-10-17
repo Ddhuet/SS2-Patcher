@@ -1,0 +1,2 @@
+Title: Stackable consumables
+Consumables stack in the bag and warehouse.

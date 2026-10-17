@@ -1,0 +1,2 @@
+Title: Warrior COUNTER fix
+Fixes the Warrior's COUNTER skill.

@@ -1,0 +1,1 @@
+Lets you open the warehouse from the world map.

@@ -1,0 +1,151 @@
+{
+  "patches": [
+    {
+      "file": "counter_fix.ips",
+      "title": "Warrior COUNTER fix",
+      "description": "Fixes the Warrior's COUNTER skill.",
+      "size": 33,
+      "sha256": "527baf2bade43478393be283630fc9b311402d3fa8c3c3f4b6fe213ad55436d0"
+    },
+    {
+      "file": "enemy_hp_bars.ips32",
+      "title": "Enemy HP bars",
+      "description": "Shows HP bars above enemies in the field.",
+      "size": 2095,
+      "sha256": "c761bbec3f2576e9e7be32902fca859717e96ea16cbbb1fc4db1d9fe1e12a2ce"
+    },
+    {
+      "file": "equipment_set_balance_rework.ips",
+      "description": "Rebalances equipment sets and their pieces.",
+      "size": 1756,
+      "sha256": "86e5582804b7d6e320704677a2bf23bf9391433f19dff0bc76a6242625664a33"
+    },
+    {
+      "file": "four_digit_ui_display.ips",
+      "title": "Four-digit UI display",
+      "description": "Lets the HUD show four-digit numbers.",
+      "size": 6866,
+      "sha256": "b32ee6077421d16ce626879092d876bc8e9a98ce1be6764c7efb1f020915be63"
+    },
+    {
+      "file": "guaranteed_fusing.ips",
+      "description": "When the blacksmith's three materials match a recipe, the fuse always uses that recipe (no more ~30% roll first). Other combinations are unchanged.",
+      "size": 14,
+      "sha256": "c46aa4cb6b2abdc9b34c770661791e9d17f95091273165b4a13f5f8d71ede61a"
+    },
+    {
+      "file": "level_250.ips32",
+      "title": "Level cap 250",
+      "description": "Raises the level cap to 250, with a new EXP table.",
+      "size": 2135,
+      "sha256": "3cd5c8dff9161e4282e11ba898669c6dd58510581400305c5cb0832509425828"
+    },
+    {
+      "file": "life_leech.ips",
+      "title": "HP / MP leech",
+      "description": "Adds HP / MP leech.",
+      "size": 197,
+      "sha256": "a107dc37934fbf76a261b42c8ac510c94e0152bce8cd8c8fd64ef90ceec2963b"
+    },
+    {
+      "file": "money_drop_control.ips",
+      "description": "Controls gold drops from the first drop slot.",
+      "size": 98,
+      "sha256": "288f2a2e463ba1d617ff55a20ab1b252af7982b7bf21ae6f3ab60cb074149bd8"
+    },
+    {
+      "file": "normal_attack_charge_accuracy.ips",
+      "description": "Normal (tap A) attacks get the same accuracy as charge attacks.",
+      "size": 45,
+      "sha256": "79518d96af97eceeac8a0fecf00ac5932ed4cb28abe0c16ca29dcb8b7cbc54b1"
+    },
+    {
+      "file": "per_character_attribute_caps.ips",
+      "description": "Gives each character its own attribute caps.",
+      "size": 267,
+      "sha256": "a9765af88c4d9eb8bb86c516deb0381d2c119fc32498f18510908aae8033d4e9"
+    },
+    {
+      "file": "persistent_archer_and_dark_mage_summons.ips",
+      "title": "Persistent Archer and Dark Mage summons",
+      "description": "Archer and Dark Mage summons stay out permanently.",
+      "size": 20,
+      "sha256": "6eaeb808a27696be23e8e8e6ff509309f6860fd41ebf5753910f304f4d2748ea"
+    },
+    {
+      "file": "respec.ips",
+      "description": "Lets you redistribute stat points.",
+      "size": 37,
+      "sha256": "e7e7895286b9f76e8465683efa1591fbe77aa4f3b0c0e31e6f809a637ce8c9ad"
+    },
+    {
+      "file": "ring_balance_rework.ips",
+      "description": "Adjusts ring stats.",
+      "size": 109,
+      "sha256": "a88c53b15a8b79d664a0bbcce5b01e80d9bdcfa98643f97f32f4f7f500fe7a35"
+    },
+    {
+      "file": "shared_character_warehouses_beta.ips32",
+      "title": "Shared character warehouses (beta)",
+      "description": "Beta. Warehouse shared between characters, with several pages. Touches save data: back up your save first.",
+      "size": 6239,
+      "sha256": "d94f0a2f2c0de1d3dd690b82c8485b629fc0f1c3889a3d103ac3da78ce591b3b"
+    },
+    {
+      "file": "soul_return_auto_revive.ips",
+      "description": "Soul Return revives you automatically when you die.",
+      "size": 203,
+      "sha256": "2c7ed00277e82c3ac52e89a35a80a92004c49dcc3f76b3ea4d448cb789e21162"
+    },
+    {
+      "file": "soul_ring.ips",
+      "description": "Lets you equip a ring in the soul slot.",
+      "size": 420,
+      "sha256": "9b044c29ef12ac4686b2ee9804f3d467b52db857b71426cf8b75e12d47b47722"
+    },
+    {
+      "file": "stackable_consumables_104b1_consumefix.ips32",
+      "title": "Stackable consumables",
+      "description": "Consumables stack in the bag and warehouse.",
+      "size": 3293,
+      "sha256": "88c5130a16bc4d510efddad662013be6d42e545d0d155c780f9d3a018b876236"
+    },
+    {
+      "file": "status_resistance_overflow_fix.ips",
+      "description": "Fixes an overflow in status resistance.",
+      "size": 15,
+      "sha256": "695e2fd2df74cd764261f3fc3079c7d73992e86959d0c0e00a7040fcf69c4901"
+    },
+    {
+      "file": "temple_soul_fusion_rework.ips",
+      "description": "Reworks the temple's soul fusion recipes.",
+      "size": 819,
+      "sha256": "dc4d337141157d4c5c8533eba99a96d04915e14ac7ca2bc33469a27bc9d5ee87"
+    },
+    {
+      "file": "town_return_heal.ips",
+      "description": "Returning to town through the blue teleporter after a boss, or with an Angel Wing, refills HP and SP, like leaving the arena already does.",
+      "size": 77,
+      "sha256": "5a32384c33a3a31eec9bb99fc4a4ce71dd1d2d62648e52848866a3e6e977b0f9"
+    },
+    {
+      "file": "waitcnt_performance_fix.ips",
+      "title": "Performance fix (WAITCNT)",
+      "description": "Runs the cartridge at the wait states the developers intended (the game reset them at boot), for less slowdown.",
+      "size": 27,
+      "sha256": "0f9858816c3213ca489bf45790cf1ddf95e6444f15e98cb789bd5882a1573ce4"
+    },
+    {
+      "file": "weapon_balance_rework.ips",
+      "description": "Adjusts weapon stats. Also renames \"Combat Claw\" to \"Combat Knife\" (it becomes a knife).",
+      "size": 355,
+      "sha256": "e597762fec1b633a47572f81663e74ed2f47afe1629da21a419f7411f0d3398c"
+    },
+    {
+      "file": "world_map_warehouse.ips",
+      "description": "Lets you open the warehouse from the world map.",
+      "size": 14,
+      "sha256": "05670f23e16c5d6f4c7296564350bb3ed2b7278cbb4e1abbc9b351197aec6797"
+    }
+  ]
+}

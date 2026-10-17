@@ -1,0 +1,5 @@
+# Never commit ROMs or saves.
+*.[gG][bB][aA]
+*.[sS][aA][vV]
+*.[sS][sS][0-9]
+__pycache__/

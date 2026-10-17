@@ -1,0 +1,2 @@
+Title: Shared character warehouses (beta)
+Beta. Warehouse shared between characters, with several pages. Touches save data: back up your save first.

@@ -1,0 +1,1 @@
+Adjusts weapon stats. Also renames "Combat Claw" to "Combat Knife" (it becomes a knife).

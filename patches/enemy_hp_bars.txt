@@ -1,0 +1,2 @@
+Title: Enemy HP bars
+Shows HP bars above enemies in the field.

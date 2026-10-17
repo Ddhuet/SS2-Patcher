@@ -1,0 +1,4 @@
+#!/bin/sh
+# Rebuild patches/index.json so it always matches the committed patches.
+# Enable once per clone:  git config core.hooksPath .githooks
+python3 tools/make_index.py && git add patches/index.json

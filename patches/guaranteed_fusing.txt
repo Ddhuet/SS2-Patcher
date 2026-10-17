@@ -1,0 +1,1 @@
+When the blacksmith's three materials match a recipe, the fuse always uses that recipe (no more ~30% roll first). Other combinations are unchanged.
