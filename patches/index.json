@@ -15,6 +15,13 @@
       "sha256": "c761bbec3f2576e9e7be32902fca859717e96ea16cbbb1fc4db1d9fe1e12a2ce"
     },
     {
+      "file": "enemy_pathing.ips32",
+      "title": "Enemy Pathfinding Fix",
+      "description": "Actual enemy pathfinding, no more getting stuck behind walls or obstacles.",
+      "size": 5673,
+      "sha256": "750155666feeb9fa9a2e7eb269bd50016d7b36aeccf8276086c588a7c328524c"
+    },
+    {
       "file": "equipment_set_balance_rework.ips",
       "description": "Rebalances equipment sets and their pieces.",
       "size": 1756,

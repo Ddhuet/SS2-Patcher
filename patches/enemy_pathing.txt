@@ -1,0 +1,2 @@
+Title: Enemy Pathfinding Fix
+Actual enemy pathfinding, no more getting stuck behind walls or obstacles.
