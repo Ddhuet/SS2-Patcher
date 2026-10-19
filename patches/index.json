@@ -143,6 +143,13 @@
       "sha256": "0f9858816c3213ca489bf45790cf1ddf95e6444f15e98cb789bd5882a1573ce4"
     },
     {
+      "file": "walk_angles.ips32",
+      "title": "Proper walk angles",
+      "description": "Makes diagonal movement happen at 45 degree angles instead of 27 degrees. Made by Nellified.",
+      "size": 98,
+      "sha256": "2a3e7f5d1bc19e9bd9e740426b6204e199575fb5277dd122d9e65035d1509b1d"
+    },
+    {
       "file": "weapon_balance_rework.ips",
       "description": "Adjusts weapon stats. Also renames \"Combat Claw\" to \"Combat Knife\" (it becomes a knife).",
       "size": 355,

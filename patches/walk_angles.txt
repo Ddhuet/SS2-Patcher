@@ -1,0 +1,2 @@
+Title: Proper walk angles
+Makes diagonal movement happen at 45 degree angles instead of 27 degrees. Made by Nellified.
