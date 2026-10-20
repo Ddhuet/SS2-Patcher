@@ -11,8 +11,8 @@
       "file": "enemy_hp_bars.bps",
       "title": "Enemy HP bars",
       "description": "Shows HP bars above enemies in the field.",
-      "size": 1466,
-      "sha256": "24791e5cddc45ab69a39c9b4620e60902e37a49126f19f9232630b5aed6bfa47"
+      "size": 1509,
+      "sha256": "3ac534daba13a762d048fd5c2ba992439b4b56cb95bdc2fa8983cf041fd93f7c"
     },
     {
       "file": "enemy_pathing.bps",
