@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shining Soul II Patcher</title>
-<meta name="description" content="Apply gameplay patches to the English Shining Soul II (GBA) ROM in your browser.">
+<meta name="description" content="Translate the Japanese Shining Soul II (GBA) ROM to English and add gameplay patches, in your browser.">
 <style>
   :root {
     --bg: #f6f5f2; --panel: #ffffff; --text: #1d1d1f; --muted: #6b6b70; --line: #dcdad4;
@@ -74,7 +74,7 @@
 <body>
 <main>
   <h1>Shining Soul II Patcher</h1>
-  <p class="sub">Gameplay patches for the English translation of Shining Soul II (GBA). Everything runs in
+  <p class="sub">An English translation of Shining Soul II (GBA), plus gameplay patches. Everything runs in
     your browser: your ROM is never uploaded.</p>
 
   <section>
@@ -83,7 +83,7 @@
       <strong>Choose a .gba file</strong> or drop it here
       <input type="file" id="rom-file" accept=".gba,.bin">
     </div>
-    <div class="info" id="rom-info">The patches are made for the English ROM <code id="base-name">ss2-en-phase1d.gba</code>.</div>
+    <div class="info" id="rom-info">Use the Japanese ROM <code id="base-name">Shining Soul II (Japan).gba</code>.</div>
   </section>
 
   <section>
@@ -103,7 +103,10 @@
   <footer>
     Any combination of these patches is safe: none of them overlap. If two selected patches ever write
     different bytes to the same place, the patcher refuses and names them.
-    <b>IPS32</b> patches write above 16 MiB; most IPS tools (Flips etc.) can't read them, this one can.
+    The English translation is applied first and the gameplay patches go on top of it.
+    A ROM bigger than 16 MiB is padded to the full 32 MiB.
+    The <b>.bps</b> files also work in Flips or Rom Patcher JS, but only one at a time: a gameplay
+    .bps there needs the plain English ROM. To combine patches, use this page.
     Most mods are by the Chinese SS2 modding community.
   </footer>
 </main>

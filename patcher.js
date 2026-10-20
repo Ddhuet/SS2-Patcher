@@ -4,18 +4,22 @@
 // missing it falls back to the web server's directory listing of patches/ (nginx autoindex,
 // Apache Indexes, python -m http.server), so new .ips files show up even before the index is rebuilt.
 //
-// Formats: IPS ("PATCH" ... "EOF", 24-bit offsets, RLE records, optional truncate size) and
-// IPS32 ("IPS32" ... "EEOF", 32-bit offsets) for patches that write above 16 MiB.
-// Selected patches are checked against each other first: two patches that write different bytes
-// to the same offset are refused (identical bytes are allowed).
+// Formats: IPS ("PATCH" ... "EOF", 24-bit offsets, RLE records, optional truncate size),
+// IPS32 ("IPS32" ... "EEOF", 32-bit offsets) and BPS ("BPS1", with source/target CRC32s).
+// A BPS marked "kind": "translation" in index.json turns the Japanese ROM into the English one and
+// is applied first; every other patch is made against the English ROM. A mod BPS is decoded
+// against the ROM at that point and turned into a list of changed bytes, so all mods go through
+// the same conflict check: two patches that write different bytes to the same offset are refused
+// (identical bytes are allowed). Output bigger than 16 MiB is padded with zeros to 32 MiB.
 "use strict";
 
 const PATCH_DIR = "patches/";
-const EXTS = [".ips", ".ips32"];
+const EXTS = [".ips", ".ips32", ".bps"];
+const MIB16 = 0x1000000, MIB32 = 0x2000000;
 const STORE_KEY = "ss2-patcher-selection";
 
 const $ = (id) => document.getElementById(id);
-const state = { patches: [], base: new Set(), baseName: "", rom: null, romName: "", romSha: "" };
+const state = { patches: [], base: new Map(), baseName: "", rom: null, romName: "", romSha: "" };
 
 // ---------------------------------------------------------------- patch logic
 
@@ -62,6 +66,114 @@ function parsePatch(name, data) {
     }
   }
   return { writes, truncate };
+}
+
+// ---------------------------------------------------------------- BPS
+
+let crcTable = null;
+function crc32(bytes) {
+  if (!crcTable) {
+    crcTable = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      crcTable[n] = c >>> 0;
+    }
+  }
+  let c = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) c = crcTable[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+
+const hex8 = (v) => v.toString(16).toUpperCase().padStart(8, "0");
+const le32 = (d, p) => (d[p] | (d[p + 1] << 8) | (d[p + 2] << 16) | (d[p + 3] << 24)) >>> 0;
+
+// Parse a BPS header and footer: {name, data, pos (first command), sourceSize, targetSize, sourceCrc, targetCrc}.
+function parseBps(name, data) {
+  if (!bytesEqual(data, 0, "BPS1") || data.length < 19) throw new PatchError(`${name}: not a BPS file`);
+  if (crc32(data.subarray(0, data.length - 4)) !== le32(data, data.length - 4)) {
+    throw new PatchError(`${name}: the patch file is damaged (checksum mismatch)`);
+  }
+  const bps = { name, data, pos: 4 };
+  const num = () => bpsNumber(bps);
+  bps.sourceSize = num();
+  bps.targetSize = num();
+  const metaSize = num();
+  bps.pos += metaSize; // skip metadata
+  bps.sourceCrc = le32(data, data.length - 12);
+  bps.targetCrc = le32(data, data.length - 8);
+  bps.start = bps.pos;
+  return bps;
+}
+
+function bpsNumber(bps) {
+  let value = 0, shift = 1;
+  for (;;) {
+    if (bps.pos >= bps.data.length - 12) throw new PatchError(`${bps.name}: truncated`);
+    const b = bps.data[bps.pos++];
+    value += (b & 0x7f) * shift;
+    if (b & 0x80) return value;
+    shift *= 128;
+    value += shift;
+  }
+}
+
+// Decode a BPS against source. romCrc may be passed when already known.
+function applyBps(source, bps, romCrc = crc32(source)) {
+  if (source.length !== bps.sourceSize || romCrc !== bps.sourceCrc) {
+    throw new PatchError(`${bps.name} was made for a different ROM (expected CRC32 ${hex8(bps.sourceCrc)}, ` +
+      `size ${bps.sourceSize}; this one is ${hex8(romCrc)}, size ${source.length}).`);
+  }
+  const out = new Uint8Array(bps.targetSize);
+  const d = bps.data, end = d.length - 12;
+  let out_ = 0, srcRel = 0, tgtRel = 0;
+  bps.pos = bps.start;
+  while (bps.pos < end) {
+    const cmd = bpsNumber(bps), len = Math.floor(cmd / 4) + 1, action = cmd % 4;
+    if (out_ + len > out.length) throw new PatchError(`${bps.name}: writes past the end of the ROM`);
+    if (action === 0) {            // SourceRead
+      out.set(source.subarray(out_, out_ + len), out_);
+    } else if (action === 1) {     // TargetRead
+      out.set(d.subarray(bps.pos, bps.pos + len), out_);
+      bps.pos += len;
+    } else {                       // SourceCopy / TargetCopy
+      const r = bpsNumber(bps), delta = (r & 1 ? -1 : 1) * Math.floor(r / 2);
+      if (action === 2) {
+        srcRel += delta;
+        out.set(source.subarray(srcRel, srcRel + len), out_);
+        srcRel += len;
+      } else {
+        tgtRel += delta;
+        for (let i = 0; i < len; i++) out[out_ + i] = out[tgtRel++]; // may overlap
+      }
+    }
+    out_ += len;
+  }
+  if (out_ !== out.length || crc32(out) !== bps.targetCrc) {
+    throw new PatchError(`${bps.name}: the result failed its checksum`);
+  }
+  return out;
+}
+
+// The bytes a BPS changes in base, as IPS-style writes.
+function bpsWrites(base, bps, baseCrc) {
+  const target = applyBps(base, bps, baseCrc);
+  const writes = [];
+  for (let i = 0; i < target.length;) {
+    if (i < base.length && target[i] === base[i]) { i++; continue; }
+    const start = i;
+    while (i < target.length && !(i < base.length && target[i] === base[i])) i++;
+    writes.push([start, target.subarray(start, i)]);
+  }
+  return { writes, truncate: null };
+}
+
+// Pad output that went past 16 MiB to the full 32 MiB a GBA cartridge maps.
+function padRom(rom) {
+  if (rom.length <= MIB16 || rom.length >= MIB32) return rom;
+  const out = new Uint8Array(MIB32);
+  out.set(rom);
+  return out;
 }
 
 // [patch A, patch B, first offset] for each pair that writes different bytes to the same place.
@@ -196,11 +308,14 @@ async function fetchListing() {
   }));
 }
 
-// Same rules as tools/make_index.py: optional "Title: ..." first line, the rest is the description.
+// Same rules as tools/make_index.py: optional leading "Title: ..." / "Kind: ..." lines, the rest is the description.
 function parseSidecar(text) {
   const lines = text.trim().split(/\r?\n/);
   const out = {};
-  if (lines.length && /^title:/i.test(lines[0])) out.title = lines.shift().split(":").slice(1).join(":").trim();
+  while (lines.length && /^(title|kind):/i.test(lines[0])) {
+    const [key, ...rest] = lines.shift().split(":");
+    out[key.trim().toLowerCase()] = rest.join(":").trim();
+  }
   const desc = lines.map((l) => l.trim()).filter(Boolean).join(" ");
   if (desc) out.description = desc;
   return out;
@@ -211,8 +326,9 @@ async function loadBase() {
     const r = await fetch(PATCH_DIR + "base_rom.sha256", { cache: "no-cache" });
     if (!r.ok) return;
     for (const line of (await r.text()).split(/\r?\n/)) {
-      const [sha, name] = line.trim().split(/\s+/);
-      if (sha) state.base.add(sha.toLowerCase());
+      const sha = line.trim().split(/\s+/)[0];
+      const name = line.trim().split(/\s+/).slice(1).join(" ");
+      if (sha) state.base.set(sha.toLowerCase(), name);
       if (name && !state.baseName) state.baseName = name;
     }
     if (state.baseName) $("base-name").textContent = state.baseName;
@@ -244,10 +360,12 @@ async function loadPatches() {
         title: p.title || pretty(stem),
         description: p.description || "",
         ips32: p.file.toLowerCase().endsWith(".ips32"),
-        checked: saved.has(p.file),
+        bps: p.file.toLowerCase().endsWith(".bps"),
+        translation: (p.kind || "").toLowerCase() === "translation",
+        checked: saved.has(p.file) || (p.kind || "").toLowerCase() === "translation",
       };
     })
-    .sort((a, b) => a.file.toLowerCase().localeCompare(b.file.toLowerCase()));
+    .sort((a, b) => (b.translation - a.translation) || a.file.toLowerCase().localeCompare(b.file.toLowerCase()));
   renderList();
 }
 
@@ -281,10 +399,10 @@ function renderList() {
     const name = document.createElement("div");
     name.className = "name";
     name.textContent = p.title;
-    if (p.ips32) {
+    if (p.ips32 || p.bps) {
       const tag = document.createElement("span");
       tag.className = "tag";
-      tag.textContent = "IPS32";
+      tag.textContent = p.translation ? "applied first" : p.ips32 ? "IPS32" : "BPS";
       name.append(tag);
     }
     text.append(name);
@@ -339,13 +457,15 @@ async function setRom(file) {
       (state.baseName ? ` (${state.baseName}). ` : ". ") + "Patching may break the game.";
   } else {
     info.className = "info ok";
-    info.textContent = `${file.name}: SHA-256 ${short}` + (state.base.size ? " — matches the patches' base ROM." : "");
+    const which = state.base.get(state.romSha);
+    info.textContent = `${file.name}: SHA-256 ${short}` + (which ? ` — matches ${which}.` : "");
   }
   updateStatus();
 }
 
-function outputName(names) {
-  const stem = state.romName.replace(/\.[^.]+$/, "");
+function outputName(names, translated) {
+  const stem = translated ? "Shining Soul II (English)" : state.romName.replace(/\.[^.]+$/, "");
+  if (!names.length) return `${stem}.gba`;
   const ext = (state.romName.match(/\.[^.]+$/) || [".gba"])[0];
   const tag = names.length <= 3 ? names.join("+") : `${names.length}_patches`;
   return `${stem}+${tag}${ext}`;
@@ -368,21 +488,13 @@ async function doApply() {
   $("apply").disabled = true;
   try {
     setStatus("Downloading patches…");
-    for (const p of chosen) {
-      if (p.parsed) continue;
-      const r = await fetch(PATCH_DIR + encodeURIComponent(p.file), { cache: "no-cache" });
-      if (!r.ok) throw new PatchError(`${p.file}: HTTP ${r.status}`);
-      p.parsed = parsePatch(p.file, new Uint8Array(await r.arrayBuffer()));
-    }
-    const clash = conflicts(chosen);
-    if (clash.length) {
-      throw new PatchError("These patches write different bytes to the same place:\n" +
-        clash.map(([a, b, o]) => `  ${a} / ${b} at 0x${o.toString(16).toUpperCase().padStart(8, "0")}`).join("\n"));
-    }
+    const tr = state.patches.find((p) => p.translation);
+    for (const p of tr ? [tr, ...chosen] : chosen) await loadPatchFile(p);
     setStatus("Patching…");
-    const out = applyPatches(state.rom, chosen);
+    await new Promise((r) => setTimeout(r)); // let the status paint
+    const { out, translated, mods } = buildRom(state.rom, chosen, tr);
     const sha = await sha256(out);
-    const name = outputName(chosen.map((p) => p.file.replace(/\.[^.]+$/, "")));
+    const name = outputName(mods.map((p) => p.file.replace(/\.[^.]+$/, "")), translated);
     download(out, name);
     setStatus(`Downloaded ${name}\n(${chosen.length} patches, SHA-256 ${sha.slice(0, 16)}…)`, "ok");
   } catch (e) {
@@ -390,6 +502,42 @@ async function doApply() {
   } finally {
     $("apply").disabled = !state.rom || !selected().length;
   }
+}
+
+async function loadPatchFile(p) {
+  if (p.parsed || p.bpsData) return;
+  const r = await fetch(PATCH_DIR + encodeURIComponent(p.file), { cache: "no-cache" });
+  if (!r.ok) throw new PatchError(`${p.file}: HTTP ${r.status}`);
+  const data = new Uint8Array(await r.arrayBuffer());
+  if (p.bps) p.bpsData = parseBps(p.file, data);
+  else p.parsed = parsePatch(p.file, data);
+}
+
+// Translation first (if chosen), then the mods as one conflict-checked set of writes, then padding.
+// tr is the translation patch (chosen or not), used to spot a Japanese ROM without it.
+function buildRom(rom, chosen, tr) {
+  const mods = chosen.filter((p) => !p.translation);
+  let crc = crc32(rom), translated = false;
+  if (tr && chosen.includes(tr)) {
+    if (!(rom.length === tr.bpsData.targetSize && crc === tr.bpsData.targetCrc)) { // not English yet
+      if (crc !== tr.bpsData.sourceCrc) {
+        throw new PatchError(`${tr.title} needs the Japanese ROM, Shining Soul II (Japan).gba ` +
+          `(CRC32 ${hex8(tr.bpsData.sourceCrc)}). Your ROM's CRC32 is ${hex8(crc)}.`);
+      }
+      rom = applyBps(rom, tr.bpsData, crc);
+      crc = tr.bpsData.targetCrc;
+      translated = true;
+    }
+  } else if (tr && mods.length && crc === tr.bpsData.sourceCrc) {
+    throw new PatchError(`This is the Japanese ROM; the patches are made for the English one. Tick "${tr.title}".`);
+  }
+  for (const p of mods) if (p.bps) p.parsed = bpsWrites(rom, p.bpsData, crc);
+  const clash = conflicts(mods);
+  if (clash.length) {
+    throw new PatchError("These patches write different bytes to the same place:\n" +
+      clash.map(([a, b, o]) => `  ${a} / ${b} at 0x${hex8(o)}`).join("\n"));
+  }
+  return { out: padRom(applyPatches(rom, mods)), translated, mods };
 }
 
 function setup() {
@@ -411,4 +559,8 @@ function setup() {
   loadBase().then(loadPatches);
 }
 
-setup();
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { parsePatch, parseBps, applyBps, bpsWrites, buildRom, crc32, padRom, PatchError };
+} else {
+  setup();
+}

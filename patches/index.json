@@ -8,18 +8,26 @@
       "sha256": "527baf2bade43478393be283630fc9b311402d3fa8c3c3f4b6fe213ad55436d0"
     },
     {
-      "file": "enemy_hp_bars.ips32",
+      "file": "enemy_hp_bars.bps",
       "title": "Enemy HP bars",
       "description": "Shows HP bars above enemies in the field.",
-      "size": 2095,
-      "sha256": "c761bbec3f2576e9e7be32902fca859717e96ea16cbbb1fc4db1d9fe1e12a2ce"
+      "size": 1466,
+      "sha256": "24791e5cddc45ab69a39c9b4620e60902e37a49126f19f9232630b5aed6bfa47"
     },
     {
-      "file": "enemy_pathing.ips32",
+      "file": "enemy_pathing.bps",
       "title": "Enemy Pathfinding Fix",
       "description": "Actual enemy pathfinding, no more getting stuck behind walls or obstacles.",
-      "size": 5673,
-      "sha256": "750155666feeb9fa9a2e7eb269bd50016d7b36aeccf8276086c588a7c328524c"
+      "size": 4011,
+      "sha256": "303dd26836e14b23edc2963ec9e2d3d51c54a44f67e5284f674bd06ccc9da305"
+    },
+    {
+      "file": "english_translation.bps",
+      "title": "English translation",
+      "kind": "translation",
+      "description": "Translates the Japanese ROM, Shining Soul II (Japan).gba, into English. It also includes the Chinese community's bug fixes that the other patches are built on. Leave this ticked when you start from the Japanese ROM; the other patches are applied on top of it. It is a standard BPS patch, so Flips or Rom Patcher JS can also apply it on its own.",
+      "size": 745083,
+      "sha256": "b0bf4f3585397413395c22bdba16128dbc021229edab16f1dda9dd56252f6426"
     },
     {
       "file": "equipment_set_balance_rework.ips",
@@ -41,11 +49,11 @@
       "sha256": "c46aa4cb6b2abdc9b34c770661791e9d17f95091273165b4a13f5f8d71ede61a"
     },
     {
-      "file": "level_250.ips32",
+      "file": "level_250.bps",
       "title": "Level cap 250",
       "description": "Raises the level cap to 250, with a new EXP table.",
-      "size": 2135,
-      "sha256": "3cd5c8dff9161e4282e11ba898669c6dd58510581400305c5cb0832509425828"
+      "size": 1055,
+      "sha256": "56f731e8dac40d16a88d12f67a54d18822178ca2c1092878d3bfacab2351de50"
     },
     {
       "file": "life_leech.ips",
@@ -92,11 +100,11 @@
       "sha256": "a88c53b15a8b79d664a0bbcce5b01e80d9bdcfa98643f97f32f4f7f500fe7a35"
     },
     {
-      "file": "shared_character_warehouses_beta.ips32",
+      "file": "shared_character_warehouses_beta.bps",
       "title": "Shared character warehouses (beta)",
       "description": "Beta. Warehouse shared between characters, with several pages. Touches save data: back up your save first.",
-      "size": 6239,
-      "sha256": "d94f0a2f2c0de1d3dd690b82c8485b629fc0f1c3889a3d103ac3da78ce591b3b"
+      "size": 4031,
+      "sha256": "c67d27ed2c0bdd521f4562622946ff35d8b58665da13b4cd185fb7c599511e40"
     },
     {
       "file": "soul_return_auto_revive.ips",
@@ -111,11 +119,11 @@
       "sha256": "9b044c29ef12ac4686b2ee9804f3d467b52db857b71426cf8b75e12d47b47722"
     },
     {
-      "file": "stackable_consumables_104b1_consumefix.ips32",
+      "file": "stackable_consumables_104b1_consumefix.bps",
       "title": "Stackable consumables",
       "description": "Consumables stack in the bag and warehouse.",
-      "size": 3293,
-      "sha256": "88c5130a16bc4d510efddad662013be6d42e545d0d155c780f9d3a018b876236"
+      "size": 2340,
+      "sha256": "a189fa126895057674643d44224f3dcdbb2c4cee0a6f6603f8bddc99b19afd8f"
     },
     {
       "file": "status_resistance_overflow_fix.ips",
@@ -143,11 +151,11 @@
       "sha256": "0f9858816c3213ca489bf45790cf1ddf95e6444f15e98cb789bd5882a1573ce4"
     },
     {
-      "file": "walk_angles.ips32",
+      "file": "walk_angles.bps",
       "title": "Proper walk angles",
       "description": "Makes diagonal movement happen at 45 degree angles instead of 27 degrees. Made by Nellified.",
-      "size": 98,
-      "sha256": "2a3e7f5d1bc19e9bd9e740426b6204e199575fb5277dd122d9e65035d1509b1d"
+      "size": 78,
+      "sha256": "0f3475fb5b106f34b7002ec65538e63fe472f42299e96f4486b5cf2cea290038"
     },
     {
       "file": "weapon_balance_rework.ips",

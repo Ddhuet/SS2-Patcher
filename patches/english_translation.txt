@@ -1,0 +1,3 @@
+Title: English translation
+Kind: translation
+Translates the Japanese ROM, Shining Soul II (Japan).gba, into English. It also includes the Chinese community's bug fixes that the other patches are built on. Leave this ticked when you start from the Japanese ROM; the other patches are applied on top of it. It is a standard BPS patch, so Flips or Rom Patcher JS can also apply it on its own.
