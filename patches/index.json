@@ -132,6 +132,13 @@
       "sha256": "695e2fd2df74cd764261f3fc3079c7d73992e86959d0c0e00a7040fcf69c4901"
     },
     {
+      "file": "summon_ai.bps",
+      "title": "Smarter Archer Summons (needs Enemy Pathfinding Fix)",
+      "description": "The Archer's summoned pets use the Enemy Pathfinding Fix's path map: the pet picks the on-screen enemy closest to you by walking distance, walks around walls to reach it (no more running into or through walls), attacks it once per second until it dies, leaves the screen or can't be reached, and then walks back to you instead of flying through walls. If you take a hit while it's busy with a farther enemy, it comes back and goes after the closer one. Single player only. Without the Enemy Pathfinding Fix this patch does nothing.",
+      "size": 7714,
+      "sha256": "924093777dc1e5541991d30f2c4838a3e1a4a0c83fcc51f20e14a62dc7dcb11e"
+    },
+    {
       "file": "temple_soul_fusion_rework.ips",
       "description": "Reworks the temple's soul fusion recipes.",
       "size": 819,
