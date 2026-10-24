@@ -1,1 +1,1 @@
-Lets you redistribute stat points.
+Lets you redistribute skill points.

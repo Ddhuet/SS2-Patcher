@@ -144,7 +144,7 @@
     },
     {
       "file": "respec.ips",
-      "description": "Lets you redistribute stat points.",
+      "description": "Lets you redistribute skill points.",
       "size": 37,
       "sha256": "e7e7895286b9f76e8465683efa1591fbe77aa4f3b0c0e31e6f809a637ce8c9ad",
       "cn": "cn/respec.bps",
