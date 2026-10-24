@@ -25,11 +25,11 @@
  },
  "enemy_pathing": {
   "file": "enemy_pathing.bps",
-  "en_sha256": "303dd26836e14b23edc2963ec9e2d3d51c54a44f67e5284f674bd06ccc9da305",
+  "en_sha256": "7b79f973a51bb87e048271984fc80acea27ebaf1dbf27f2a2e05a84451e8456a",
   "cn": true,
-  "reason": "3576 bytes",
+  "reason": "3540 bytes",
   "cn_file": "cn/enemy_pathing.bps",
-  "cn_sha256": "7f70a412cb1b050d648f24e8904758e03eab99d1c916b733bd96b20f0fad064c"
+  "cn_sha256": "71e54dc20c2ea9ae6430bc0d1456f50b939640a14a01167186f07f7a5cc16b90"
  },
  "equipment_set_balance_rework": {
   "file": "equipment_set_balance_rework.ips",
