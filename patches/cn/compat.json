@@ -1,0 +1,218 @@
+{
+ "counter_fix": {
+  "file": "counter_fix.ips",
+  "en_sha256": "527baf2bade43478393be283630fc9b311402d3fa8c3c3f4b6fe213ad55436d0",
+  "cn": true,
+  "reason": "15 bytes",
+  "cn_file": "cn/counter_fix.bps",
+  "cn_sha256": "0f5b4b5cd67e6d1ca1c87df1bda9a6f30964cffc54eb88d36560de6b0abee328"
+ },
+ "counter_fix_slash": {
+  "file": "counter_fix_slash.bps",
+  "en_sha256": "06791f8cc0c4aa32e06af232d7373d55b4c5234dcb1cd927a659340f951c4ab9",
+  "cn": true,
+  "reason": "402 bytes",
+  "cn_file": "cn/counter_fix_slash.bps",
+  "cn_sha256": "3053eeed4ea0f8ccd2f1946c86ef2c6c5bc6d52e338b2b60d98005d6e024a82f"
+ },
+ "enemy_hp_bars": {
+  "file": "enemy_hp_bars.bps",
+  "en_sha256": "3ac534daba13a762d048fd5c2ba992439b4b56cb95bdc2fa8983cf041fd93f7c",
+  "cn": true,
+  "reason": "1254 bytes",
+  "cn_file": "cn/enemy_hp_bars.bps",
+  "cn_sha256": "6253f965ccfb75b21e6e1cffaa0161cef663ac1b488da78323b22522d0af71d6"
+ },
+ "enemy_pathing": {
+  "file": "enemy_pathing.bps",
+  "en_sha256": "303dd26836e14b23edc2963ec9e2d3d51c54a44f67e5284f674bd06ccc9da305",
+  "cn": true,
+  "reason": "3576 bytes",
+  "cn_file": "cn/enemy_pathing.bps",
+  "cn_sha256": "7f70a412cb1b050d648f24e8904758e03eab99d1c916b733bd96b20f0fad064c"
+ },
+ "equipment_set_balance_rework": {
+  "file": "equipment_set_balance_rework.ips",
+  "en_sha256": "86e5582804b7d6e320704677a2bf23bf9391433f19dff0bc76a6242625664a33",
+  "cn": true,
+  "reason": "308 bytes",
+  "cn_file": "cn/equipment_set_balance_rework.bps",
+  "cn_sha256": "4f34e1a4659154ab58a91e3b60cba2d65e538aa827352bb8e83d9e45c030bc63"
+ },
+ "four_digit_ui_display": {
+  "file": "four_digit_ui_display.ips",
+  "en_sha256": "b32ee6077421d16ce626879092d876bc8e9a98ce1be6764c7efb1f020915be63",
+  "cn": true,
+  "reason": "3633 bytes",
+  "cn_file": "cn/four_digit_ui_display.bps",
+  "cn_sha256": "8a44d9bfb94063ace16b04203d81d28f1b6be2166edd8f2241d01c02ff55f4cd"
+ },
+ "guaranteed_fusing": {
+  "file": "guaranteed_fusing.ips",
+  "en_sha256": "c46aa4cb6b2abdc9b34c770661791e9d17f95091273165b4a13f5f8d71ede61a",
+  "cn": true,
+  "reason": "1 bytes",
+  "cn_file": "cn/guaranteed_fusing.bps",
+  "cn_sha256": "7a807d99429990a9cb077f803357217c30f0f34edaec736a65538f39b057c0de"
+ },
+ "level_250": {
+  "file": "level_250.bps",
+  "en_sha256": "56f731e8dac40d16a88d12f67a54d18822178ca2c1092878d3bfacab2351de50",
+  "cn": true,
+  "reason": "764 bytes",
+  "cn_file": "cn/level_250.bps",
+  "cn_sha256": "ba79c717cdd78ab5a80cfeec9fddc5f8f5e877cc66d40bf65da11c1255da65a0"
+ },
+ "life_leech": {
+  "file": "life_leech.ips",
+  "en_sha256": "a107dc37934fbf76a261b42c8ac510c94e0152bce8cd8c8fd64ef90ceec2963b",
+  "cn": true,
+  "reason": "109 bytes",
+  "cn_file": "cn/life_leech.bps",
+  "cn_sha256": "9872e9634796724cbc12cf484d23ed0a391da5a1a31a8514368019f120a444f1"
+ },
+ "money_drop_control": {
+  "file": "money_drop_control.ips",
+  "en_sha256": "288f2a2e463ba1d617ff55a20ab1b252af7982b7bf21ae6f3ab60cb074149bd8",
+  "cn": true,
+  "reason": "50 bytes",
+  "cn_file": "cn/money_drop_control.bps",
+  "cn_sha256": "389a42825673e22897a60e4732fa8543d68e737c4a4d4fc42dfa6dfa6b2315bd"
+ },
+ "normal_attack_charge_accuracy": {
+  "file": "normal_attack_charge_accuracy.ips",
+  "en_sha256": "79518d96af97eceeac8a0fecf00ac5932ed4cb28abe0c16ca29dcb8b7cbc54b1",
+  "cn": true,
+  "reason": "17 bytes",
+  "cn_file": "cn/normal_attack_charge_accuracy.bps",
+  "cn_sha256": "f1047c0b0dfbe2808754141459e824a02b9dcf57e6cfbda54ab2ed65e673ee43"
+ },
+ "per_character_attribute_caps": {
+  "file": "per_character_attribute_caps.ips",
+  "en_sha256": "a9765af88c4d9eb8bb86c516deb0381d2c119fc32498f18510908aae8033d4e9",
+  "cn": true,
+  "reason": "204 bytes",
+  "cn_file": "cn/per_character_attribute_caps.bps",
+  "cn_sha256": "3b54473b0f27158d37ca703569dd14166308a7c4ae930a98f3600264ef3f93e8"
+ },
+ "persistent_archer_and_dark_mage_summons": {
+  "file": "persistent_archer_and_dark_mage_summons.ips",
+  "en_sha256": "6eaeb808a27696be23e8e8e6ff509309f6860fd41ebf5753910f304f4d2748ea",
+  "cn": true,
+  "reason": "2 bytes",
+  "cn_file": "cn/persistent_archer_and_dark_mage_summons.bps",
+  "cn_sha256": "f1eef46ec7654ec7d4c2dc0f5acaefc9ddb3b08b66b64546f346d6d46eea8868"
+ },
+ "respec": {
+  "file": "respec.ips",
+  "en_sha256": "e7e7895286b9f76e8465683efa1591fbe77aa4f3b0c0e31e6f809a637ce8c9ad",
+  "cn": true,
+  "reason": "14 bytes",
+  "cn_file": "cn/respec.bps",
+  "cn_sha256": "3a427825b730f5635c0f2c119eabc5699ab8ca4165540c750723269003f32ed4"
+ },
+ "ring_balance_rework": {
+  "file": "ring_balance_rework.ips",
+  "en_sha256": "a88c53b15a8b79d664a0bbcce5b01e80d9bdcfa98643f97f32f4f7f500fe7a35",
+  "cn": true,
+  "reason": "21 bytes",
+  "cn_file": "cn/ring_balance_rework.bps",
+  "cn_sha256": "fcc853350140e668ac3267b2e4fa0e3c390b5acdbd0764075f91d91d0335e66e"
+ },
+ "shared_character_warehouses_beta": {
+  "file": "shared_character_warehouses_beta.bps",
+  "en_sha256": "c67d27ed2c0bdd521f4562622946ff35d8b58665da13b4cd185fb7c599511e40",
+  "cn": true,
+  "reason": "3080 bytes",
+  "cn_file": "cn/shared_character_warehouses_beta.bps",
+  "cn_sha256": "fb0c3c748e9baef0cf259468c0cef84a3b341d975d79d0c3c6ea559309a3a201"
+ },
+ "soul_return_auto_revive": {
+  "file": "soul_return_auto_revive.ips",
+  "en_sha256": "2c7ed00277e82c3ac52e89a35a80a92004c49dcc3f76b3ea4d448cb789e21162",
+  "cn": true,
+  "reason": "130 bytes",
+  "cn_file": "cn/soul_return_auto_revive.bps",
+  "cn_sha256": "fcaa8cd6de29ebc368c3dd953415d0e5e3b322b79c10664acc93b23892313b81"
+ },
+ "soul_ring": {
+  "file": "soul_ring.ips",
+  "en_sha256": "9b044c29ef12ac4686b2ee9804f3d467b52db857b71426cf8b75e12d47b47722",
+  "cn": true,
+  "reason": "322 bytes",
+  "cn_file": "cn/soul_ring.bps",
+  "cn_sha256": "5b44c56bb943056ce242a3533cc6c770cd2d71555292f713edc020012b9ff3c5"
+ },
+ "stackable_consumables_104b1_consumefix": {
+  "file": "stackable_consumables_104b1_consumefix.bps",
+  "en_sha256": "a189fa126895057674643d44224f3dcdbb2c4cee0a6f6603f8bddc99b19afd8f",
+  "cn": true,
+  "reason": "2024 bytes",
+  "cn_file": "cn/stackable_consumables_104b1_consumefix.bps",
+  "cn_sha256": "cdbf974bd634f678dd084fedc9ea1b2be895f1540955835ee4aed8144c7b5f7d"
+ },
+ "status_resistance_overflow_fix": {
+  "file": "status_resistance_overflow_fix.ips",
+  "en_sha256": "695e2fd2df74cd764261f3fc3079c7d73992e86959d0c0e00a7040fcf69c4901",
+  "cn": true,
+  "reason": "2 bytes",
+  "cn_file": "cn/status_resistance_overflow_fix.bps",
+  "cn_sha256": "096c76a29220c8d99bfba19237850946f9258ec2140641fca33e4166e94fb5f0"
+ },
+ "summon_ai": {
+  "file": "summon_ai.bps",
+  "en_sha256": "924093777dc1e5541991d30f2c4838a3e1a4a0c83fcc51f20e14a62dc7dcb11e",
+  "cn": true,
+  "reason": "6939 bytes",
+  "cn_file": "cn/summon_ai.bps",
+  "cn_sha256": "9eef1b321cb4eb11b0e4916ad6206b45756f9b9baadf0d61980c85e8b54878a5"
+ },
+ "temple_soul_fusion_rework": {
+  "file": "temple_soul_fusion_rework.ips",
+  "en_sha256": "dc4d337141157d4c5c8533eba99a96d04915e14ac7ca2bc33469a27bc9d5ee87",
+  "cn": true,
+  "reason": "136 bytes",
+  "cn_file": "cn/temple_soul_fusion_rework.bps",
+  "cn_sha256": "fd7f75b296e33e215ad2134c33138b70f5ade9c48898c34662981358c547ff10"
+ },
+ "town_return_heal": {
+  "file": "town_return_heal.ips",
+  "en_sha256": "5a32384c33a3a31eec9bb99fc4a4ce71dd1d2d62648e52848866a3e6e977b0f9",
+  "cn": true,
+  "reason": "49 bytes",
+  "cn_file": "cn/town_return_heal.bps",
+  "cn_sha256": "836a1f47f002361b2d48116cde40aa3c644cbeb08a4ae4863a2003bf26f4ea17"
+ },
+ "waitcnt_performance_fix": {
+  "file": "waitcnt_performance_fix.ips",
+  "en_sha256": "0f9858816c3213ca489bf45790cf1ddf95e6444f15e98cb789bd5882a1573ce4",
+  "cn": true,
+  "reason": "14 bytes",
+  "cn_file": "cn/waitcnt_performance_fix.bps",
+  "cn_sha256": "6c77e9d92e9e9078a110d1f6fcb84dea19489e64604d8f78948c9763beec7aa5"
+ },
+ "walk_angles": {
+  "file": "walk_angles.bps",
+  "en_sha256": "0f3475fb5b106f34b7002ec65538e63fe472f42299e96f4486b5cf2cea290038",
+  "cn": true,
+  "reason": "23 bytes",
+  "cn_file": "cn/walk_angles.bps",
+  "cn_sha256": "c971650502611b52b9f7103b3179a32a4ff5a738bc25e66777100f80ba1cedd3"
+ },
+ "weapon_balance_rework": {
+  "file": "weapon_balance_rework.ips",
+  "en_sha256": "e597762fec1b633a47572f81663e74ed2f47afe1629da21a419f7411f0d3398c",
+  "cn": true,
+  "reason": "76 bytes; 6 English-name bytes dropped",
+  "cn_file": "cn/weapon_balance_rework.bps",
+  "cn_sha256": "b584141f2460b65c14d5e8dfc5bccdc4820d265e14e2edf89ae985d9ffd15fb9"
+ },
+ "world_map_warehouse": {
+  "file": "world_map_warehouse.ips",
+  "en_sha256": "05670f23e16c5d6f4c7296564350bb3ed2b7278cbb4e1abbc9b351197aec6797",
+  "cn": true,
+  "reason": "1 bytes",
+  "cn_file": "cn/world_map_warehouse.bps",
+  "cn_sha256": "e19e92bd2b42ddad9d635b9f2e3402f267ad4087c3cce592e1c5e1098052c059"
+ }
+}

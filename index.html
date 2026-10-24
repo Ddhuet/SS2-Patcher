@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shining Soul II Patcher</title>
-<meta name="description" content="Translate the Japanese Shining Soul II (GBA) ROM to English and add gameplay patches, in your browser.">
+<meta name="description" content="Translate the Japanese Shining Soul II (GBA) ROM to English (or make the Chinese community version) and add gameplay patches, in your browser.">
 <style>
   :root {
     --bg: #f6f5f2; --panel: #ffffff; --text: #1d1d1f; --muted: #6b6b70; --line: #dcdad4;
@@ -64,6 +64,9 @@
     margin-left: 6px; color: var(--muted); font-weight: 400;
   }
   .desc { color: var(--muted); font-size: 0.9rem; }
+  #list label.off { cursor: not-allowed; opacity: 0.55; }
+  #list label.off:hover { background: none; }
+  .why { color: var(--warn); }
   .dl { margin-left: auto; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
   #status { margin: 12px 0; min-height: 1.4em; white-space: pre-wrap; }
   footer { color: var(--muted); font-size: 0.85rem; }
@@ -83,7 +86,8 @@
       <strong>Choose a .gba file</strong> or drop it here
       <input type="file" id="rom-file" accept=".gba,.bin">
     </div>
-    <div class="info" id="rom-info">Use the Japanese ROM <code id="base-name">Shining Soul II (Japan).gba</code>.</div>
+    <div class="info" id="rom-info">Use the Japanese ROM <code id="base-name">Shining Soul II (Japan).gba</code>.
+      The Chinese community ROM (SS2_SC_bug_fixed) works too: the patches are then applied in their Chinese versions.</div>
   </section>
 
   <section>
@@ -103,7 +107,8 @@
   <footer>
     Any combination of these patches is safe: none of them overlap. If two selected patches ever write
     different bytes to the same place, the patcher refuses and names them.
-    The English translation is applied first and the gameplay patches go on top of it.
+    The English translation (or the Chinese ROM patch: tick one) is applied first and the gameplay
+    patches go on top of it. For the Chinese game, patches that need English text are greyed out.
     A ROM bigger than 16 MiB is padded to the full 32 MiB.
     The <b>.bps</b> files also work in Flips or Rom Patcher JS, but only one at a time: a gameplay
     .bps there needs the plain English ROM. To combine patches, use this page.

@@ -1,0 +1,3 @@
+Title: Chinese (CN community ROM)
+Kind: cn_base
+Turns the Japanese ROM into the Chinese community's bug-fixed ROM (SS2_SC_bug_fixed), the ROM all of these mods are built on, in Chinese. Tick this instead of the English translation to get the Chinese game; patches that need English text are greyed out. Chinese players who already have that ROM can load it directly and leave this unticked.

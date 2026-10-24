@@ -6,8 +6,12 @@
 //
 // Formats: IPS ("PATCH" ... "EOF", 24-bit offsets, RLE records, optional truncate size),
 // IPS32 ("IPS32" ... "EEOF", 32-bit offsets) and BPS ("BPS1", with source/target CRC32s).
-// A BPS marked "kind": "translation" in index.json turns the Japanese ROM into the English one and
-// is applied first; every other patch is made against the English ROM. A mod BPS is decoded
+// Two base patches turn the Japanese ROM into a playable base and are applied first (tick one):
+// "kind": "translation" (JP -> English) and "kind": "cn_base" (JP -> the Chinese community ROM,
+// SS2_SC_bug_fixed). Every mod is made against the English ROM. When the result is the Chinese
+// game (Chinese base ticked, or the Chinese ROM uploaded) each mod is swapped for its Chinese
+// version, patches/cn/<name>.bps ("cn" in index.json); mods without one ("cn_reason") are greyed
+// out. Same rules as Patch_Manager/patch_manager.py, so both give byte-identical ROMs. A mod BPS is decoded
 // against the ROM at that point and turned into a list of changed bytes, so all mods go through
 // the same conflict check: two patches that write different bytes to the same offset are refused
 // (identical bytes are allowed). Output bigger than 16 MiB is padded with zeros to 32 MiB.
@@ -19,7 +23,8 @@ const MIB16 = 0x1000000, MIB32 = 0x2000000;
 const STORE_KEY = "ss2-patcher-selection";
 
 const $ = (id) => document.getElementById(id);
-const state = { patches: [], base: new Map(), baseName: "", rom: null, romName: "", romSha: "" };
+const state = { patches: [], base: new Map(), baseKind: new Map(), baseName: "", rom: null, romName: "",
+  romSha: "", romKind: null };
 
 // ---------------------------------------------------------------- patch logic
 
@@ -326,9 +331,13 @@ async function loadBase() {
     const r = await fetch(PATCH_DIR + "base_rom.sha256", { cache: "no-cache" });
     if (!r.ok) return;
     for (const line of (await r.text()).split(/\r?\n/)) {
-      const sha = line.trim().split(/\s+/)[0];
-      const name = line.trim().split(/\s+/).slice(1).join(" ");
-      if (sha) state.base.set(sha.toLowerCase(), name);
+      const parts = line.trim().split(/\s+/);
+      const sha = (parts[0] || "").toLowerCase();
+      const kind = ["jp", "en", "cn"].includes(parts[1]) ? parts[1] : null;
+      const name = parts.slice(kind ? 2 : 1).join(" ");
+      if (!sha) continue;
+      state.base.set(sha, name);
+      if (kind) state.baseKind.set(sha, kind);
       if (name && !state.baseName) state.baseName = name;
     }
     if (state.baseName) $("base-name").textContent = state.baseName;
@@ -352,20 +361,31 @@ async function loadPatches() {
     }
   }
   const saved = loadSelection();
+  const baseOf = (p) => ({ translation: "en", cn_base: "cn" })[(p.kind || "").toLowerCase()] || null;
+  const order = { en: 0, cn: 1 };
   state.patches = list
     .map((p) => {
       const stem = p.file.replace(/\.[^.]+$/, "");
+      const base = baseOf(p);
       return {
         file: p.file,
         title: p.title || pretty(stem),
         description: p.description || "",
         ips32: p.file.toLowerCase().endsWith(".ips32"),
         bps: p.file.toLowerCase().endsWith(".bps"),
-        translation: (p.kind || "").toLowerCase() === "translation",
-        checked: saved.has(p.file) || (p.kind || "").toLowerCase() === "translation",
+        base,
+        translation: base === "en",
+        cn: p.cn || null,
+        cnReason: p.cn_reason || "it has no Chinese version",
+        checked: saved.size ? saved.has(p.file) : base === "en",
       };
     })
-    .sort((a, b) => (b.translation - a.translation) || a.file.toLowerCase().localeCompare(b.file.toLowerCase()));
+    .sort((a, b) => ((order[a.base] ?? 2) - (order[b.base] ?? 2)) ||
+      a.file.toLowerCase().localeCompare(b.file.toLowerCase()));
+  if (!state.patches.some((p) => p.base && p.checked)) {
+    const tr = state.patches.find((p) => p.base === "en");
+    if (tr) tr.checked = true;
+  }
   renderList();
 }
 
@@ -379,7 +399,28 @@ function saveSelection() {
 
 // ---------------------------------------------------------------- UI
 
+// "cn" when the download will be the Chinese game, else "en".
+function language() {
+  const base = state.patches.find((p) => p.base && p.checked);
+  if (base) return base.base;
+  return state.romKind === "cn" ? "cn" : "en";
+}
+
+// Why p can't be used right now ("" when it can): base patches need the Japanese ROM,
+// English-only mods can't go on the Chinese game.
+function unavailable(p) {
+  if (p.base) return state.romKind === "en" || state.romKind === "cn" ? "your ROM is already patched" : "";
+  return language() === "cn" && !p.cn ? `English only: ${p.cnReason}` : "";
+}
+
+// Untick what can't apply; bases first, since unticking one can change the language.
+function settleChecks() {
+  for (const p of state.patches) if (p.base && unavailable(p)) p.checked = false;
+  for (const p of state.patches) if (!p.base && unavailable(p)) p.checked = false;
+}
+
 function renderList() {
+  settleChecks();
   const ul = $("list");
   ul.innerHTML = "";
   if (!state.patches.length) {
@@ -394,7 +435,15 @@ function renderList() {
     const cb = document.createElement("input");
     cb.type = "checkbox";
     cb.checked = p.checked;
-    cb.addEventListener("change", () => { p.checked = cb.checked; saveSelection(); updateStatus(); });
+    const why = unavailable(p);
+    cb.disabled = !!why;
+    if (why) label.classList.add("off");
+    cb.addEventListener("change", () => {
+      p.checked = cb.checked;
+      if (p.base && p.checked) for (const q of state.patches) if (q.base && q !== p) q.checked = false;
+      saveSelection();
+      if (p.base) renderList(); else updateStatus();
+    });
     const text = document.createElement("div");
     const name = document.createElement("div");
     name.className = "name";
@@ -402,7 +451,7 @@ function renderList() {
     if (p.ips32 || p.bps) {
       const tag = document.createElement("span");
       tag.className = "tag";
-      tag.textContent = p.translation ? "applied first" : p.ips32 ? "IPS32" : "BPS";
+      tag.textContent = p.base ? "base, applied first" : p.ips32 ? "IPS32" : "BPS";
       name.append(tag);
     }
     text.append(name);
@@ -411,6 +460,12 @@ function renderList() {
       d.className = "desc";
       d.textContent = p.description;
       text.append(d);
+    }
+    if (why) {
+      const w = document.createElement("div");
+      w.className = "desc why";
+      w.textContent = why.charAt(0).toUpperCase() + why.slice(1) + ".";
+      text.append(w);
     }
     const dl = document.createElement("a");
     dl.className = "dl";
@@ -460,11 +515,18 @@ async function setRom(file) {
     const which = state.base.get(state.romSha);
     info.textContent = `${file.name}: SHA-256 ${short}` + (which ? ` — matches ${which}.` : "");
   }
-  updateStatus();
+  const was = state.romKind;
+  state.romKind = state.baseKind.get(state.romSha) || null;
+  if (state.romKind === "jp" && was && was !== "jp" && !state.patches.some((p) => p.base && p.checked)) {
+    const tr = state.patches.find((p) => p.base === "en");
+    if (tr) tr.checked = true; // back on the Japanese ROM: default to English again
+  }
+  renderList();
 }
 
-function outputName(names, translated) {
-  const stem = translated ? "Shining Soul II (English)" : state.romName.replace(/\.[^.]+$/, "");
+function outputName(names, applied) {
+  const stem = applied ? (applied.base === "cn" ? "Shining Soul II (Chinese)" : "Shining Soul II (English)")
+    : state.romName.replace(/\.[^.]+$/, "");
   if (!names.length) return `${stem}.gba`;
   const ext = (state.romName.match(/\.[^.]+$/) || [".gba"])[0];
   const tag = names.length <= 3 ? names.join("+") : `${names.length}_patches`;
@@ -488,13 +550,21 @@ async function doApply() {
   $("apply").disabled = true;
   try {
     setStatus("Downloading patches…");
-    const tr = state.patches.find((p) => p.translation);
-    for (const p of tr ? [tr, ...chosen] : chosen) await loadPatchFile(p);
+    const tr = state.patches.find((p) => p.base === "en");
+    const cnb = state.patches.find((p) => p.base === "cn");
+    for (const p of [tr, cnb, ...chosen]) if (p) await loadPatchFile(p);
+    if (language() === "cn") {
+      for (const p of chosen) {
+        if (p.base || !p.cn) continue;
+        p.cnPatch = p.cnPatch || { file: p.cn, title: p.title, bps: true };
+        await loadPatchFile(p.cnPatch);
+      }
+    }
     setStatus("Patching…");
     await new Promise((r) => setTimeout(r)); // let the status paint
-    const { out, translated, mods } = buildRom(state.rom, chosen, tr);
+    const { out, applied, mods } = buildRom(state.rom, chosen, tr, cnb);
     const sha = await sha256(out);
-    const name = outputName(mods.map((p) => p.file.replace(/\.[^.]+$/, "")), translated);
+    const name = outputName(mods.map((p) => p.file.replace(/^cn\//, "").replace(/\.[^.]+$/, "")), applied);
     download(out, name);
     setStatus(`Downloaded ${name}\n(${chosen.length} patches, SHA-256 ${sha.slice(0, 16)}…)`, "ok");
   } catch (e) {
@@ -506,30 +576,55 @@ async function doApply() {
 
 async function loadPatchFile(p) {
   if (p.parsed || p.bpsData) return;
-  const r = await fetch(PATCH_DIR + encodeURIComponent(p.file), { cache: "no-cache" });
+  const r = await fetch(PATCH_DIR + p.file.split("/").map(encodeURIComponent).join("/"), { cache: "no-cache" });
   if (!r.ok) throw new PatchError(`${p.file}: HTTP ${r.status}`);
   const data = new Uint8Array(await r.arrayBuffer());
   if (p.bps) p.bpsData = parseBps(p.file, data);
   else p.parsed = parsePatch(p.file, data);
 }
 
-// Translation first (if chosen), then the mods as one conflict-checked set of writes, then padding.
-// tr is the translation patch (chosen or not), used to spot a Japanese ROM without it.
-function buildRom(rom, chosen, tr) {
-  const mods = chosen.filter((p) => !p.translation);
-  let crc = crc32(rom), translated = false;
-  if (tr && chosen.includes(tr)) {
-    if (!(rom.length === tr.bpsData.targetSize && crc === tr.bpsData.targetCrc)) { // not English yet
-      if (crc !== tr.bpsData.sourceCrc) {
-        throw new PatchError(`${tr.title} needs the Japanese ROM, Shining Soul II (Japan).gba ` +
-          `(CRC32 ${hex8(tr.bpsData.sourceCrc)}). Your ROM's CRC32 is ${hex8(crc)}.`);
+// Base patch first (if chosen), then the mods as one conflict-checked set of writes, then padding.
+// tr / cnb are the English / Chinese base patches (chosen or not), used to recognise the input ROM.
+// On the Chinese ROM each mod is swapped for its Chinese version (p.cnPatch, loaded beforehand).
+function romKindOf(crc, tr, cnb) {
+  if ((tr && crc === tr.bpsData.sourceCrc) || (cnb && crc === cnb.bpsData.sourceCrc)) return "jp";
+  if (tr && crc === tr.bpsData.targetCrc) return "en";
+  if (cnb && crc === cnb.bpsData.targetCrc) return "cn";
+  return null;
+}
+
+function buildRom(rom, chosen, tr, cnb) {
+  const bases = chosen.filter((p) => p.base);
+  let mods = chosen.filter((p) => !p.base);
+  if (bases.length > 1) throw new PatchError("Tick only one of the English translation and the Chinese ROM.");
+  const base = bases[0] || null;
+  if (base && base.base === "en") tr = base;
+  else if (base) cnb = base;
+  let crc = crc32(rom), applied = null;
+  let kind = romKindOf(crc, tr, cnb);
+  if (base) {
+    const b = base.bpsData;
+    if (!(rom.length === b.targetSize && crc === b.targetCrc)) { // not that base yet
+      if (crc !== b.sourceCrc) {
+        const other = { en: "English", cn: "Chinese" }[kind];
+        throw new PatchError(`${base.title} needs the Japanese ROM, Shining Soul II (Japan).gba ` +
+          `(CRC32 ${hex8(b.sourceCrc)}). ` + (other ? `This is already the ${other} ROM: untick "${base.title}".`
+            : `Your ROM's CRC32 is ${hex8(crc)}.`));
       }
-      rom = applyBps(rom, tr.bpsData, crc);
-      crc = tr.bpsData.targetCrc;
-      translated = true;
+      rom = applyBps(rom, b, crc);
+      crc = b.targetCrc;
+      applied = base;
+      kind = romKindOf(crc, tr, cnb);
     }
-  } else if (tr && mods.length && crc === tr.bpsData.sourceCrc) {
-    throw new PatchError(`This is the Japanese ROM; the patches are made for the English one. Tick "${tr.title}".`);
+  } else if (mods.length && kind === "jp") {
+    throw new PatchError(`This is the Japanese ROM; tick "${tr ? tr.title : "English translation"}" ` +
+      `(or "${cnb ? cnb.title : "Chinese"}" for the Chinese game) first.`);
+  }
+  if (kind === "cn") {
+    mods = mods.map((p) => {
+      if (!p.cnPatch) throw new PatchError(`${p.title} only works on the English ROM: ${p.cnReason}.`);
+      return p.cnPatch;
+    });
   }
   for (const p of mods) if (p.bps) p.parsed = bpsWrites(rom, p.bpsData, crc);
   const clash = conflicts(mods);
@@ -537,7 +632,7 @@ function buildRom(rom, chosen, tr) {
     throw new PatchError("These patches write different bytes to the same place:\n" +
       clash.map(([a, b, o]) => `  ${a} / ${b} at 0x${hex8(o)}`).join("\n"));
   }
-  return { out: padRom(applyPatches(rom, mods)), translated, mods };
+  return { out: padRom(applyPatches(rom, mods)), applied, mods };
 }
 
 function setup() {
@@ -553,8 +648,14 @@ function setup() {
     drop.classList.remove("over");
     if (e.dataTransfer.files[0]) setRom(e.dataTransfer.files[0]);
   });
-  $("all").addEventListener("click", () => { state.patches.forEach((p) => { p.checked = true; }); saveSelection(); renderList(); });
-  $("none").addEventListener("click", () => { state.patches.forEach((p) => { p.checked = false; }); saveSelection(); renderList(); });
+  $("all").addEventListener("click", () => {
+    state.patches.forEach((p) => { if (!p.base && !unavailable(p)) p.checked = true; });
+    saveSelection(); renderList();
+  });
+  $("none").addEventListener("click", () => {
+    state.patches.forEach((p) => { if (!p.base) p.checked = false; });
+    saveSelection(); renderList();
+  });
   $("apply").addEventListener("click", doApply);
   loadBase().then(loadPatches);
 }

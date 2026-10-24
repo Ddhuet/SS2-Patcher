@@ -1,32 +1,62 @@
 {
+  "roms": {
+    "jp": {
+      "sha256": "9f3e0d0653de6504c1aeaf03de3cca06ae0c15a24089f0236398ec56d382d17a",
+      "label": "Shining Soul II (Japan).gba"
+    },
+    "en": {
+      "sha256": "4343a9c7fa9b6f9889a5fd9e334b807ebf98e200729810e92108b27d9bb953cb",
+      "label": "English ROM (ss2-en-phase1d.gba)"
+    },
+    "cn": {
+      "sha256": "45ac38bb1bfba779592b5c79ce94982cf7c00fda5b3c5b84735e55c77d6fc989",
+      "label": "Chinese community ROM (SS2_SC_bug_fixed.GBA)"
+    }
+  },
   "patches": [
+    {
+      "file": "cn_baseline.bps",
+      "title": "Chinese (CN community ROM)",
+      "kind": "cn_base",
+      "description": "Turns the Japanese ROM into the Chinese community's bug-fixed ROM (SS2_SC_bug_fixed), the ROM all of these mods are built on, in Chinese. Tick this instead of the English translation to get the Chinese game; patches that need English text are greyed out. Chinese players who already have that ROM can load it directly and leave this unticked.",
+      "size": 383052,
+      "sha256": "4d6ab9c3a59cd657448b5838adb0ef7a2a32b864578c7d5ae0bd9726e4fea05c"
+    },
     {
       "file": "counter_fix.ips",
       "title": "Warrior COUNTER fix",
       "description": "Fixes the Warrior's COUNTER skill.",
       "size": 33,
-      "sha256": "527baf2bade43478393be283630fc9b311402d3fa8c3c3f4b6fe213ad55436d0"
+      "sha256": "527baf2bade43478393be283630fc9b311402d3fa8c3c3f4b6fe213ad55436d0",
+      "cn": "cn/counter_fix.bps",
+      "cn_sha256": "0f5b4b5cd67e6d1ca1c87df1bda9a6f30964cffc54eb88d36560de6b0abee328"
     },
     {
       "file": "counter_fix_slash.bps",
       "title": "Counter fix with slash FX (alt. version)",
       "description": "Fixes the Warrior's Counter ability and makes a red slash effect when it triggers. Do not use with the other counter fix.",
       "size": 557,
-      "sha256": "06791f8cc0c4aa32e06af232d7373d55b4c5234dcb1cd927a659340f951c4ab9"
+      "sha256": "06791f8cc0c4aa32e06af232d7373d55b4c5234dcb1cd927a659340f951c4ab9",
+      "cn": "cn/counter_fix_slash.bps",
+      "cn_sha256": "3053eeed4ea0f8ccd2f1946c86ef2c6c5bc6d52e338b2b60d98005d6e024a82f"
     },
     {
       "file": "enemy_hp_bars.bps",
       "title": "Enemy HP bars",
       "description": "Shows HP bars above enemies in the field.",
       "size": 1509,
-      "sha256": "3ac534daba13a762d048fd5c2ba992439b4b56cb95bdc2fa8983cf041fd93f7c"
+      "sha256": "3ac534daba13a762d048fd5c2ba992439b4b56cb95bdc2fa8983cf041fd93f7c",
+      "cn": "cn/enemy_hp_bars.bps",
+      "cn_sha256": "6253f965ccfb75b21e6e1cffaa0161cef663ac1b488da78323b22522d0af71d6"
     },
     {
       "file": "enemy_pathing.bps",
       "title": "Enemy Pathfinding Fix",
       "description": "Actual enemy pathfinding, no more getting stuck behind walls or obstacles.",
       "size": 4011,
-      "sha256": "303dd26836e14b23edc2963ec9e2d3d51c54a44f67e5284f674bd06ccc9da305"
+      "sha256": "303dd26836e14b23edc2963ec9e2d3d51c54a44f67e5284f674bd06ccc9da305",
+      "cn": "cn/enemy_pathing.bps",
+      "cn_sha256": "7f70a412cb1b050d648f24e8904758e03eab99d1c916b733bd96b20f0fad064c"
     },
     {
       "file": "english_translation.bps",
@@ -40,148 +70,194 @@
       "file": "equipment_set_balance_rework.ips",
       "description": "Rebalances equipment sets and their pieces.",
       "size": 1756,
-      "sha256": "86e5582804b7d6e320704677a2bf23bf9391433f19dff0bc76a6242625664a33"
+      "sha256": "86e5582804b7d6e320704677a2bf23bf9391433f19dff0bc76a6242625664a33",
+      "cn": "cn/equipment_set_balance_rework.bps",
+      "cn_sha256": "4f34e1a4659154ab58a91e3b60cba2d65e538aa827352bb8e83d9e45c030bc63"
     },
     {
       "file": "four_digit_ui_display.ips",
       "title": "Four-digit UI display",
       "description": "Lets the HUD show four-digit numbers.",
       "size": 6866,
-      "sha256": "b32ee6077421d16ce626879092d876bc8e9a98ce1be6764c7efb1f020915be63"
+      "sha256": "b32ee6077421d16ce626879092d876bc8e9a98ce1be6764c7efb1f020915be63",
+      "cn": "cn/four_digit_ui_display.bps",
+      "cn_sha256": "8a44d9bfb94063ace16b04203d81d28f1b6be2166edd8f2241d01c02ff55f4cd"
     },
     {
       "file": "guaranteed_fusing.ips",
       "description": "When the blacksmith's three materials match a recipe, the fuse always uses that recipe (no more ~30% roll first). Other combinations are unchanged.",
       "size": 14,
-      "sha256": "c46aa4cb6b2abdc9b34c770661791e9d17f95091273165b4a13f5f8d71ede61a"
+      "sha256": "c46aa4cb6b2abdc9b34c770661791e9d17f95091273165b4a13f5f8d71ede61a",
+      "cn": "cn/guaranteed_fusing.bps",
+      "cn_sha256": "7a807d99429990a9cb077f803357217c30f0f34edaec736a65538f39b057c0de"
     },
     {
       "file": "level_250.bps",
       "title": "Level cap 250",
       "description": "Raises the level cap to 250, with a new EXP table.",
       "size": 1055,
-      "sha256": "56f731e8dac40d16a88d12f67a54d18822178ca2c1092878d3bfacab2351de50"
+      "sha256": "56f731e8dac40d16a88d12f67a54d18822178ca2c1092878d3bfacab2351de50",
+      "cn": "cn/level_250.bps",
+      "cn_sha256": "ba79c717cdd78ab5a80cfeec9fddc5f8f5e877cc66d40bf65da11c1255da65a0"
     },
     {
       "file": "life_leech.ips",
       "title": "HP / MP leech",
       "description": "Adds HP / MP leech.",
       "size": 197,
-      "sha256": "a107dc37934fbf76a261b42c8ac510c94e0152bce8cd8c8fd64ef90ceec2963b"
+      "sha256": "a107dc37934fbf76a261b42c8ac510c94e0152bce8cd8c8fd64ef90ceec2963b",
+      "cn": "cn/life_leech.bps",
+      "cn_sha256": "9872e9634796724cbc12cf484d23ed0a391da5a1a31a8514368019f120a444f1"
     },
     {
       "file": "money_drop_control.ips",
       "description": "Controls gold drops from the first drop slot.",
       "size": 98,
-      "sha256": "288f2a2e463ba1d617ff55a20ab1b252af7982b7bf21ae6f3ab60cb074149bd8"
+      "sha256": "288f2a2e463ba1d617ff55a20ab1b252af7982b7bf21ae6f3ab60cb074149bd8",
+      "cn": "cn/money_drop_control.bps",
+      "cn_sha256": "389a42825673e22897a60e4732fa8543d68e737c4a4d4fc42dfa6dfa6b2315bd"
     },
     {
       "file": "normal_attack_charge_accuracy.ips",
       "description": "Normal (tap A) attacks get the same accuracy as charge attacks.",
       "size": 45,
-      "sha256": "79518d96af97eceeac8a0fecf00ac5932ed4cb28abe0c16ca29dcb8b7cbc54b1"
+      "sha256": "79518d96af97eceeac8a0fecf00ac5932ed4cb28abe0c16ca29dcb8b7cbc54b1",
+      "cn": "cn/normal_attack_charge_accuracy.bps",
+      "cn_sha256": "f1047c0b0dfbe2808754141459e824a02b9dcf57e6cfbda54ab2ed65e673ee43"
     },
     {
       "file": "per_character_attribute_caps.ips",
       "description": "Gives each character its own attribute caps.",
       "size": 267,
-      "sha256": "a9765af88c4d9eb8bb86c516deb0381d2c119fc32498f18510908aae8033d4e9"
+      "sha256": "a9765af88c4d9eb8bb86c516deb0381d2c119fc32498f18510908aae8033d4e9",
+      "cn": "cn/per_character_attribute_caps.bps",
+      "cn_sha256": "3b54473b0f27158d37ca703569dd14166308a7c4ae930a98f3600264ef3f93e8"
     },
     {
       "file": "persistent_archer_and_dark_mage_summons.ips",
       "title": "Persistent Archer and Dark Mage summons",
       "description": "Archer and Dark Mage summons stay out permanently.",
       "size": 20,
-      "sha256": "6eaeb808a27696be23e8e8e6ff509309f6860fd41ebf5753910f304f4d2748ea"
+      "sha256": "6eaeb808a27696be23e8e8e6ff509309f6860fd41ebf5753910f304f4d2748ea",
+      "cn": "cn/persistent_archer_and_dark_mage_summons.bps",
+      "cn_sha256": "f1eef46ec7654ec7d4c2dc0f5acaefc9ddb3b08b66b64546f346d6d46eea8868"
     },
     {
       "file": "respec.ips",
       "description": "Lets you redistribute stat points.",
       "size": 37,
-      "sha256": "e7e7895286b9f76e8465683efa1591fbe77aa4f3b0c0e31e6f809a637ce8c9ad"
+      "sha256": "e7e7895286b9f76e8465683efa1591fbe77aa4f3b0c0e31e6f809a637ce8c9ad",
+      "cn": "cn/respec.bps",
+      "cn_sha256": "3a427825b730f5635c0f2c119eabc5699ab8ca4165540c750723269003f32ed4"
     },
     {
       "file": "ring_balance_rework.ips",
       "description": "Adjusts ring stats.",
       "size": 109,
-      "sha256": "a88c53b15a8b79d664a0bbcce5b01e80d9bdcfa98643f97f32f4f7f500fe7a35"
+      "sha256": "a88c53b15a8b79d664a0bbcce5b01e80d9bdcfa98643f97f32f4f7f500fe7a35",
+      "cn": "cn/ring_balance_rework.bps",
+      "cn_sha256": "fcc853350140e668ac3267b2e4fa0e3c390b5acdbd0764075f91d91d0335e66e"
     },
     {
       "file": "shared_character_warehouses_beta.bps",
       "title": "Shared character warehouses (beta)",
       "description": "Beta. Warehouse shared between characters, with several pages. Touches save data: back up your save first.",
       "size": 4031,
-      "sha256": "c67d27ed2c0bdd521f4562622946ff35d8b58665da13b4cd185fb7c599511e40"
+      "sha256": "c67d27ed2c0bdd521f4562622946ff35d8b58665da13b4cd185fb7c599511e40",
+      "cn": "cn/shared_character_warehouses_beta.bps",
+      "cn_sha256": "fb0c3c748e9baef0cf259468c0cef84a3b341d975d79d0c3c6ea559309a3a201"
     },
     {
       "file": "soul_return_auto_revive.ips",
       "description": "Soul Return revives you automatically when you die.",
       "size": 203,
-      "sha256": "2c7ed00277e82c3ac52e89a35a80a92004c49dcc3f76b3ea4d448cb789e21162"
+      "sha256": "2c7ed00277e82c3ac52e89a35a80a92004c49dcc3f76b3ea4d448cb789e21162",
+      "cn": "cn/soul_return_auto_revive.bps",
+      "cn_sha256": "fcaa8cd6de29ebc368c3dd953415d0e5e3b322b79c10664acc93b23892313b81"
     },
     {
       "file": "soul_ring.ips",
       "description": "Lets you equip a ring in the soul slot.",
       "size": 420,
-      "sha256": "9b044c29ef12ac4686b2ee9804f3d467b52db857b71426cf8b75e12d47b47722"
+      "sha256": "9b044c29ef12ac4686b2ee9804f3d467b52db857b71426cf8b75e12d47b47722",
+      "cn": "cn/soul_ring.bps",
+      "cn_sha256": "5b44c56bb943056ce242a3533cc6c770cd2d71555292f713edc020012b9ff3c5"
     },
     {
       "file": "stackable_consumables_104b1_consumefix.bps",
       "title": "Stackable consumables",
       "description": "Consumables stack in the bag and warehouse.",
       "size": 2340,
-      "sha256": "a189fa126895057674643d44224f3dcdbb2c4cee0a6f6603f8bddc99b19afd8f"
+      "sha256": "a189fa126895057674643d44224f3dcdbb2c4cee0a6f6603f8bddc99b19afd8f",
+      "cn": "cn/stackable_consumables_104b1_consumefix.bps",
+      "cn_sha256": "cdbf974bd634f678dd084fedc9ea1b2be895f1540955835ee4aed8144c7b5f7d"
     },
     {
       "file": "status_resistance_overflow_fix.ips",
       "description": "Fixes an overflow in status resistance.",
       "size": 15,
-      "sha256": "695e2fd2df74cd764261f3fc3079c7d73992e86959d0c0e00a7040fcf69c4901"
+      "sha256": "695e2fd2df74cd764261f3fc3079c7d73992e86959d0c0e00a7040fcf69c4901",
+      "cn": "cn/status_resistance_overflow_fix.bps",
+      "cn_sha256": "096c76a29220c8d99bfba19237850946f9258ec2140641fca33e4166e94fb5f0"
     },
     {
       "file": "summon_ai.bps",
       "title": "Smarter Archer Summons (needs Enemy Pathfinding Fix)",
       "description": "The Archer's summoned pets use the Enemy Pathfinding Fix's path map: the pet picks the on-screen enemy closest to you by walking distance, walks around walls to reach it (no more running into or through walls), attacks it once per second until it dies, leaves the screen or can't be reached, and then walks back to you instead of flying through walls. If you take a hit while it's busy with a farther enemy, it comes back and goes after the closer one. Single player only. Without the Enemy Pathfinding Fix this patch does nothing.",
       "size": 7714,
-      "sha256": "924093777dc1e5541991d30f2c4838a3e1a4a0c83fcc51f20e14a62dc7dcb11e"
+      "sha256": "924093777dc1e5541991d30f2c4838a3e1a4a0c83fcc51f20e14a62dc7dcb11e",
+      "cn": "cn/summon_ai.bps",
+      "cn_sha256": "9eef1b321cb4eb11b0e4916ad6206b45756f9b9baadf0d61980c85e8b54878a5"
     },
     {
       "file": "temple_soul_fusion_rework.ips",
       "description": "Reworks the temple's soul fusion recipes.",
       "size": 819,
-      "sha256": "dc4d337141157d4c5c8533eba99a96d04915e14ac7ca2bc33469a27bc9d5ee87"
+      "sha256": "dc4d337141157d4c5c8533eba99a96d04915e14ac7ca2bc33469a27bc9d5ee87",
+      "cn": "cn/temple_soul_fusion_rework.bps",
+      "cn_sha256": "fd7f75b296e33e215ad2134c33138b70f5ade9c48898c34662981358c547ff10"
     },
     {
       "file": "town_return_heal.ips",
       "description": "Returning to town through the blue teleporter after a boss, or with an Angel Wing, refills HP and SP, like leaving the arena already does.",
       "size": 77,
-      "sha256": "5a32384c33a3a31eec9bb99fc4a4ce71dd1d2d62648e52848866a3e6e977b0f9"
+      "sha256": "5a32384c33a3a31eec9bb99fc4a4ce71dd1d2d62648e52848866a3e6e977b0f9",
+      "cn": "cn/town_return_heal.bps",
+      "cn_sha256": "836a1f47f002361b2d48116cde40aa3c644cbeb08a4ae4863a2003bf26f4ea17"
     },
     {
       "file": "waitcnt_performance_fix.ips",
       "title": "Performance fix (WAITCNT)",
       "description": "Runs the cartridge at the wait states the developers intended (the game reset them at boot), for less slowdown.",
       "size": 27,
-      "sha256": "0f9858816c3213ca489bf45790cf1ddf95e6444f15e98cb789bd5882a1573ce4"
+      "sha256": "0f9858816c3213ca489bf45790cf1ddf95e6444f15e98cb789bd5882a1573ce4",
+      "cn": "cn/waitcnt_performance_fix.bps",
+      "cn_sha256": "6c77e9d92e9e9078a110d1f6fcb84dea19489e64604d8f78948c9763beec7aa5"
     },
     {
       "file": "walk_angles.bps",
       "title": "Proper walk angles",
       "description": "Makes diagonal movement happen at 45 degree angles instead of 27 degrees. Made by Nellified.",
       "size": 78,
-      "sha256": "0f3475fb5b106f34b7002ec65538e63fe472f42299e96f4486b5cf2cea290038"
+      "sha256": "0f3475fb5b106f34b7002ec65538e63fe472f42299e96f4486b5cf2cea290038",
+      "cn": "cn/walk_angles.bps",
+      "cn_sha256": "c971650502611b52b9f7103b3179a32a4ff5a738bc25e66777100f80ba1cedd3"
     },
     {
       "file": "weapon_balance_rework.ips",
       "description": "Adjusts weapon stats. Also renames \"Combat Claw\" to \"Combat Knife\" (it becomes a knife).",
       "size": 355,
-      "sha256": "e597762fec1b633a47572f81663e74ed2f47afe1629da21a419f7411f0d3398c"
+      "sha256": "e597762fec1b633a47572f81663e74ed2f47afe1629da21a419f7411f0d3398c",
+      "cn": "cn/weapon_balance_rework.bps",
+      "cn_sha256": "b584141f2460b65c14d5e8dfc5bccdc4820d265e14e2edf89ae985d9ffd15fb9"
     },
     {
       "file": "world_map_warehouse.ips",
       "description": "Lets you open the warehouse from the world map.",
       "size": 14,
-      "sha256": "05670f23e16c5d6f4c7296564350bb3ed2b7278cbb4e1abbc9b351197aec6797"
+      "sha256": "05670f23e16c5d6f4c7296564350bb3ed2b7278cbb4e1abbc9b351197aec6797",
+      "cn": "cn/world_map_warehouse.bps",
+      "cn_sha256": "e19e92bd2b42ddad9d635b9f2e3402f267ad4087c3cce592e1c5e1098052c059"
     }
   ]
 }
