@@ -8,6 +8,13 @@
       "sha256": "527baf2bade43478393be283630fc9b311402d3fa8c3c3f4b6fe213ad55436d0"
     },
     {
+      "file": "counter_fix_slash.bps",
+      "title": "Counter fix with slash FX (alt. version)",
+      "description": "Fixes the Warrior's Counter ability and makes a red slash effect when it triggers. Do not use with the other counter fix.",
+      "size": 557,
+      "sha256": "06791f8cc0c4aa32e06af232d7373d55b4c5234dcb1cd927a659340f951c4ab9"
+    },
+    {
       "file": "enemy_hp_bars.bps",
       "title": "Enemy HP bars",
       "description": "Shows HP bars above enemies in the field.",

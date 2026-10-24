@@ -1,0 +1,2 @@
+Title: Counter fix with slash FX (alt. version)
+Fixes the Warrior's Counter ability and makes a red slash effect when it triggers. Do not use with the other counter fix.
