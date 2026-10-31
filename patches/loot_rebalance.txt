@@ -1,0 +1,2 @@
+Title: Loot rebalance
+Crates and barrels always drop something (gold or a consumable, never nothing). Wooden and iron chests no longer drop gold; that share goes to real consumables (Herbs, Healing Drops, Goddess Tears, Angel Wings…), and their gear is more often enchanted (wooden 49 %, iron 100 %). Monsters' generic drops are almost all consumables, no gold or gear. Gold chests, special chests and fixed drops are unchanged.

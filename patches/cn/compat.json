@@ -15,6 +15,14 @@
   "cn_file": "cn/counter_fix_slash.bps",
   "cn_sha256": "3053eeed4ea0f8ccd2f1946c86ef2c6c5bc6d52e338b2b60d98005d6e024a82f"
  },
+ "end_dungeon_on_death": {
+  "file": "end_dungeon_on_death.bps",
+  "en_sha256": "2e378fe01d8a601acd69f7a05c4547ca414aa5d29ba1d83dd9d6134145b56cdd",
+  "cn": true,
+  "reason": "27 bytes",
+  "cn_file": "cn/end_dungeon_on_death.bps",
+  "cn_sha256": "254e139ac7fa901b1c2b2c6f249fbcdf6355e241878489b98cc8c03899db4add"
+ },
  "enemy_hp_bars": {
   "file": "enemy_hp_bars.bps",
   "en_sha256": "3ac534daba13a762d048fd5c2ba992439b4b56cb95bdc2fa8983cf041fd93f7c",
@@ -70,6 +78,22 @@
   "reason": "109 bytes",
   "cn_file": "cn/life_leech.bps",
   "cn_sha256": "9872e9634796724cbc12cf484d23ed0a391da5a1a31a8514368019f120a444f1"
+ },
+ "loot_rebalance": {
+  "file": "loot_rebalance.bps",
+  "en_sha256": "dbdedbad101c08ebbe940a816c110d8658a6aa438e1a00402cff7ea3e987548c",
+  "cn": true,
+  "reason": "48737 bytes",
+  "cn_file": "cn/loot_rebalance.bps",
+  "cn_sha256": "6a347abb4f0a16d3c0e2f661262eab529b48564da00734abafe8a724ad56d434"
+ },
+ "lose_all_on_death": {
+  "file": "lose_all_on_death.bps",
+  "en_sha256": "2a8e7c63d1de960cbc3f3cb6a1fb7eccde8af9275ca846b7d57a3b1d2c529fca",
+  "cn": true,
+  "reason": "52 bytes",
+  "cn_file": "cn/lose_all_on_death.bps",
+  "cn_sha256": "0d3d3f01e50e261924fef1e37360fd9e086de2510a159360460bfc541aa211da"
  },
  "money_drop_control": {
   "file": "money_drop_control.ips",

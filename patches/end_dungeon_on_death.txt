@@ -1,0 +1,2 @@
+Title: Dying ends the dungeon
+When you die you wake up at the inn as usual, but the Angel never offers to take you back: the items and gold you dropped are gone, and the dungeon starts again from its first floor next time. Stacks with "Lose everything on death".

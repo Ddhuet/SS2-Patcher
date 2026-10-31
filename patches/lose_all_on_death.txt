@@ -1,0 +1,2 @@
+Title: Lose everything on death
+When you die, everything you carry is destroyed: weapons, armour, accessory, the whole bag and your gold. Only your soul is kept. Your bank storage is untouched.

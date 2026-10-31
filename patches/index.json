@@ -41,6 +41,15 @@
       "cn_sha256": "3053eeed4ea0f8ccd2f1946c86ef2c6c5bc6d52e338b2b60d98005d6e024a82f"
     },
     {
+      "file": "end_dungeon_on_death.bps",
+      "title": "Dying ends the dungeon",
+      "description": "When you die you wake up at the inn as usual, but the Angel never offers to take you back: the items and gold you dropped are gone, and the dungeon starts again from its first floor next time. Stacks with \"Lose everything on death\".",
+      "size": 69,
+      "sha256": "2e378fe01d8a601acd69f7a05c4547ca414aa5d29ba1d83dd9d6134145b56cdd",
+      "cn": "cn/end_dungeon_on_death.bps",
+      "cn_sha256": "254e139ac7fa901b1c2b2c6f249fbcdf6355e241878489b98cc8c03899db4add"
+    },
+    {
       "file": "enemy_hp_bars.bps",
       "title": "Enemy HP bars",
       "description": "Shows HP bars above enemies in the field.",
@@ -108,6 +117,24 @@
       "sha256": "a107dc37934fbf76a261b42c8ac510c94e0152bce8cd8c8fd64ef90ceec2963b",
       "cn": "cn/life_leech.bps",
       "cn_sha256": "9872e9634796724cbc12cf484d23ed0a391da5a1a31a8514368019f120a444f1"
+    },
+    {
+      "file": "loot_rebalance.bps",
+      "title": "Loot rebalance",
+      "description": "Crates and barrels always drop something (gold or a consumable, never nothing). Wooden and iron chests no longer drop gold; that share goes to real consumables (Herbs, Healing Drops, Goddess Tears, Angel Wings…), and their gear is more often enchanted (wooden 49 %, iron 100 %). Monsters' generic drops are almost all consumables, no gold or gear. Gold chests, special chests and fixed drops are unchanged.",
+      "size": 94155,
+      "sha256": "dbdedbad101c08ebbe940a816c110d8658a6aa438e1a00402cff7ea3e987548c",
+      "cn": "cn/loot_rebalance.bps",
+      "cn_sha256": "6a347abb4f0a16d3c0e2f661262eab529b48564da00734abafe8a724ad56d434"
+    },
+    {
+      "file": "lose_all_on_death.bps",
+      "title": "Lose everything on death",
+      "description": "When you die, everything you carry is destroyed: weapons, armour, accessory, the whole bag and your gold. Only your soul is kept. Your bank storage is untouched.",
+      "size": 102,
+      "sha256": "2a8e7c63d1de960cbc3f3cb6a1fb7eccde8af9275ca846b7d57a3b1d2c529fca",
+      "cn": "cn/lose_all_on_death.bps",
+      "cn_sha256": "0d3d3f01e50e261924fef1e37360fd9e086de2510a159360460bfc541aa211da"
     },
     {
       "file": "money_drop_control.ips",
